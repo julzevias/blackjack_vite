@@ -1,25 +1,27 @@
 import { useState } from "react";
-import { Card, PlayerInfo } from "./types";
+import { PlayerInfo } from "./types";
 import createDeck from "./components/createDeck";
-import InitializePlayers from "./components/InitializePlayers";
+import InitializePlayers from "./pages/InitializePlayers";
 import { DeckContext } from "./useContext/context";
-import startGameSetup from "./components/startGameSetup";
+import createPlayerHands from "./components/createPlayerHands";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const [hasGameStarted, setHasGameStarted] = useState<boolean>(false);
-  const [deck, setDeck] = useState<Card[]>(() => {
-    return createDeck();
-  });
+  const [deck, setDeck] = useState<string[]>(createDeck);
   const [allPlayerInfo, setAllPlayerInfo] = useState<PlayerInfo[]>([]);
 
-  const startGame = (bool: boolean) => {
-    startGameSetup();
-    setHasGameStarted(bool);
+  const initializeGameStart = (players: string[]) => {
+    const allPlayerInfo = createPlayerHands(players, deck);
+    setAllPlayerInfo(allPlayerInfo);
+    setHasGameStarted(true);
   };
 
   if (hasGameStarted === false) {
     return (
-      <InitializePlayers setStartGame={(bool: boolean) => startGame(bool)} />
+      <InitializePlayers
+        addPlayers={(players: string[]) => initializeGameStart(players)}
+      />
     );
   } else {
     return (
@@ -32,7 +34,7 @@ function App() {
             setAllPlayerInfo: setAllPlayerInfo,
           }}
         >
-          <div>Game is starting...</div>
+          <Dashboard />
         </DeckContext.Provider>
       </>
     );

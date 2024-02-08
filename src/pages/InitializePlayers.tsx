@@ -1,10 +1,10 @@
 import { FormEvent, useState } from "react";
 
 interface AddPlayers {
-  setStartGame: (startGame: boolean) => void;
+  addPlayers: (players: string[]) => void;
 }
 
-const AddPlayers = ({ setStartGame }: AddPlayers) => {
+const AddPlayers = ({ addPlayers }: AddPlayers) => {
   const [players, setPlayers] = useState<string[]>([
     "jon",
     "julie",
@@ -24,8 +24,12 @@ const AddPlayers = ({ setStartGame }: AddPlayers) => {
     }
   };
 
-  const onStartGame = () => {
-    setStartGame(true);
+  const onSubmitPlayers = () => {
+    if (players.length > 1) {
+      addPlayers(players);
+    } else {
+      return <div>Need at least 1 player to start the game</div>;
+    }
   };
 
   return (
@@ -75,7 +79,7 @@ const AddPlayers = ({ setStartGame }: AddPlayers) => {
       <button
         type="button"
         className="btn btn-block border mx-auto col-1 m-5"
-        onClick={onStartGame}
+        onClick={onSubmitPlayers}
       >
         Start Game
       </button>

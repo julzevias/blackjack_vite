@@ -1,10 +1,10 @@
 import { createContext } from "react";
-import { Card, PlayerInfo } from "../types";
+import { PlayerInfo } from "../types";
 
 interface GameContextProps {
-  deck: Card[];
+  deck: string[];
   allPlayerInfo: PlayerInfo[];
-  setDeck: (card: Card[]) => void;
+  setDeck: (card: string[]) => void;
   setAllPlayerInfo: (allPlayerInfo: PlayerInfo[]) => void;
 }
 
