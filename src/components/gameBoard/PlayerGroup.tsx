@@ -1,7 +1,12 @@
-import { useState } from "react";
-import { PlayerInfo } from "../../types";
+import { useContext, useState } from "react";
+import { GameContextProps, PlayerInfo } from "../../types";
+import { DeckContext } from "../../useContext/context";
+import { hit } from "./helpers/hit";
 
 const PlayerHand = ({ playerInfo }: { playerInfo: PlayerInfo[] }) => {
+  const { deck, setDeck, allPlayerInfo, setAllPlayerInfo } =
+    useContext<GameContextProps | undefined>(DeckContext) || {};
+
   const players = playerInfo.map((player: PlayerInfo) => player.name);
   const [currentPlayer, setCurrentPlayer] = useState<string>(
     players[players.length - 1]
@@ -12,7 +17,22 @@ const PlayerHand = ({ playerInfo }: { playerInfo: PlayerInfo[] }) => {
   };
 
   const onHit = () => {
-    return <>onhit</>;
+    if (!allPlayerInfo || !deck) {
+      return;
+    }
+
+    const sumOfCurrentPlayerHand =
+      hit(
+        currentPlayer,
+        deck,
+        setDeck || (() => {}),
+        allPlayerInfo,
+        setAllPlayerInfo || (() => {})
+      ) || 0;
+
+    if (sumOfCurrentPlayerHand >= 21) {
+      onStand();
+    }
   };
 
   const onStand = () => {
