@@ -1,5 +1,4 @@
-import { PlayerInfo } from "../types";
-import { drawCard } from "./playerActions/drawCard";
+import { PlayerInfo } from "../../types";
 
 export default function createPlayerHands(
   players: string[],
@@ -20,3 +19,7 @@ export default function createPlayerHands(
 
   return allPlayerInfo;
 }
+
+const drawCard = (deck: string[]): string | undefined => {
+  return deck.shift();
+};

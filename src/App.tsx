@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { PlayerInfo } from "./types";
-import createDeck from "./components/createDeck";
-import InitializePlayers from "./pages/InitializePlayers";
+import createDeck from "./components/setup/CreateDeck";
+import InitializePlayers from "./components/setup/InitializePlayers";
 import { DeckContext } from "./useContext/context";
-import createPlayerHands from "./components/createPlayerHands";
-import Dashboard from "./pages/Dashboard";
+import createPlayerHands from "./components/setup/CreatePlayerHands";
+import GameBoard from "./components/gameBoard/GameBoard";
 
 function App() {
   const [hasGameStarted, setHasGameStarted] = useState<boolean>(false);
@@ -25,18 +25,16 @@ function App() {
     );
   } else {
     return (
-      <>
-        <DeckContext.Provider
-          value={{
-            deck: deck,
-            allPlayerInfo: allPlayerInfo,
-            setDeck: setDeck,
-            setAllPlayerInfo: setAllPlayerInfo,
-          }}
-        >
-          <Dashboard />
-        </DeckContext.Provider>
-      </>
+      <DeckContext.Provider
+        value={{
+          deck: deck,
+          allPlayerInfo: allPlayerInfo,
+          setDeck: setDeck,
+          setAllPlayerInfo: setAllPlayerInfo,
+        }}
+      >
+        <GameBoard />
+      </DeckContext.Provider>
     );
   }
 }

@@ -7,6 +7,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #31663d;
 }
 
 code {
@@ -15,7 +16,6 @@ code {
 }
 
 .card {
-  min-width: 5em;
-  max-width: 10em;
-  aspect-ratio: 9/16;
+  max-height: 15em;
+  max-width: auto;
 }

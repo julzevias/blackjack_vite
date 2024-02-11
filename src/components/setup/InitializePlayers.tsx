@@ -25,10 +25,12 @@ const AddPlayers = ({ addPlayers }: AddPlayers) => {
   };
 
   const onSubmitPlayers = () => {
-    if (players.length > 1) {
-      addPlayers(players);
-    } else {
+    if (players.length < 1) {
       return <div>Need at least 1 player to start the game</div>;
+    } else if (players.length > 7) {
+      return <div>Too many players</div>;
+    } else {
+      addPlayers(players);
     }
   };
 
