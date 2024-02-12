@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { PlayerInfo } from "./types";
-import createDeck from "./components/setup/CreateDeck";
+import createDeck from "./components/setup/helpers/createDeck";
 import InitializePlayers from "./components/setup/InitializePlayers";
 import { DeckContext } from "./useContext/context";
-import createPlayerHands from "./components/setup/CreatePlayerHands";
+import createPlayerHands from "./components/setup/helpers/createPlayerHands";
 import GameBoard from "./components/gameBoard/GameBoard";
 
 function App() {

@@ -18,21 +18,11 @@ const GameBoard = () => {
   return (
     <div className="d-flex flex-column align-items-center">
       <div className="flex-column justify-content-center m-3">
-        <h3 className="text-center">Dealer</h3>
         <div className="d-flex justify-content-center">
-          {allPlayerInfo[0].hand.map((card: string) => {
-            return (
-              <img
-                key={card}
-                src={`/src/assets/poker-qr/` + card + `.svg`}
-                alt={card}
-                className="card mx-2"
-              />
-            );
-          })}
+          <PlayerGroup playerInfo={allPlayerInfo.slice(0, 1)} />
         </div>
       </div>
-      <div className="d-flex">
+      <div className="d-flex flex-column">
         <PlayerGroup playerInfo={allPlayerInfo.slice(1)} />
       </div>
     </div>
