@@ -1,57 +1,25 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { GameContextProps, PlayerInfo } from "../../types";
 import { DeckContext } from "../../useContext/context";
 import { hit } from "./helpers/hit";
 import { calculateSum } from "./helpers/calculateSum";
-import { calculateWinners } from "./helpers/calculateWinners";
+import Banner from "../common/Banner";
 
-const PlayerHand = ({ playerInfo }: { playerInfo: PlayerInfo[] }) => {
+const PlayerHand = ({
+  playerInfo,
+  players,
+  currentPlayer,
+  setCurrentPlayer,
+  flipCard,
+}: {
+  playerInfo: PlayerInfo[];
+  players: string[];
+  currentPlayer: string;
+  setCurrentPlayer: (player: string) => void;
+  flipCard: boolean;
+}) => {
   const { deck, setDeck, allPlayerInfo, setAllPlayerInfo } =
     useContext<GameContextProps | undefined>(DeckContext) || {};
-
-  const players = playerInfo.map((player: PlayerInfo) => player.name);
-  const [currentPlayer, setCurrentPlayer] = useState<string>(
-    players[players.length - 1]
-  );
-  const [confirmDealerTurn, setConfirmDealerTurn] = useState<boolean>(false);
-  const [busted, setBusted] = useState<string[]>([]);
-  const [winners, setWinners] = useState<string[]>([]);
-
-  const determineWinners = () => {
-    const winners = calculateWinners(allPlayerInfo!, players);
-
-    setWinners(winners || []);
-  };
-
-  const runDealerTurn = () => {
-    //1. calculate sum of dealer's hand
-    //2. while sum < 17, hit
-    //3. if sum >= 17, calculate Winners
-
-    let localDeck = [...deck!];
-    let localAllPlayerInfo = [...allPlayerInfo!];
-
-    let dealerHand = allPlayerInfo?.[0].hand;
-    let dealerSum = calculateSum(dealerHand || []);
-
-    while (dealerSum < 17) {
-      const result = hit("Dealer", localDeck, localAllPlayerInfo);
-      dealerHand = result?.newAllPlayerInfo[0].hand;
-      dealerSum = calculateSum(dealerHand || []);
-      localDeck = result?.newDeck || [];
-      localAllPlayerInfo = result?.newAllPlayerInfo || [];
-    }
-
-    if (dealerSum > 21) {
-      setBusted([...busted, "Dealer"]);
-    }
-    if (setDeck && setAllPlayerInfo) {
-      setDeck(localDeck);
-      setAllPlayerInfo(localAllPlayerInfo);
-    }
-
-    determineWinners();
-  };
 
   const onHit = () => {
     if (!allPlayerInfo || !deck) {
@@ -72,8 +40,19 @@ const PlayerHand = ({ playerInfo }: { playerInfo: PlayerInfo[] }) => {
   const onStand = () => {
     const index = players.indexOf(currentPlayer);
 
-    if (index === 0) {
-      setConfirmDealerTurn(true);
+    //check next player sum !== 21, else give them blackjack
+    const nextPlayer = players[index - 1] ?? 0;
+    const nextPlayerHand = allPlayerInfo?.find(
+      (player) => player.name === nextPlayer
+    )?.hand;
+    const nextPlayerSum = calculateSum(nextPlayerHand || []);
+
+    if (nextPlayerSum === 21) {
+      const localAllPlayerInfo = [...allPlayerInfo!];
+      localAllPlayerInfo
+        ?.find((player) => player.name === nextPlayer)
+        ?.roundRoles.push("BLACKJACK");
+      setAllPlayerInfo?.(localAllPlayerInfo);
     }
 
     setCurrentPlayer(players[index - 1]);
@@ -91,9 +70,8 @@ const PlayerHand = ({ playerInfo }: { playerInfo: PlayerInfo[] }) => {
       const newAllPlayerInfo = result.newAllPlayerInfo;
       const newDeck = result.newDeck;
 
-      if (newSum > 21 && !isDealerTurn) {
+      if (newSum >= 21 && !isDealerTurn) {
         setAllPlayerInfo?.(newAllPlayerInfo);
-        setBusted([...busted, result?.playerName]);
         onStand();
       } else if (newSum > 17 && isDealerTurn) {
         setAllPlayerInfo?.(newAllPlayerInfo);
@@ -107,25 +85,22 @@ const PlayerHand = ({ playerInfo }: { playerInfo: PlayerInfo[] }) => {
 
   return (
     <>
-      {confirmDealerTurn && (
-        <button onClick={runDealerTurn} className="btn text-light border">
-          Take Dealer Turn
-        </button>
-      )}
       <div className="d-flex justify-content-center m-1">
         {playerInfo.map((player: PlayerInfo) => {
+          const sum = calculateSum(player.hand);
           return (
             <div
               key={player.name}
               className="flex-column align-items-center m-3"
             >
               <div className="text-center">
-                {winners.includes(player.name) && (
-                  <div className="bg-success text-light rounded">WINNER</div>
-                )}
                 <h3>{player.name}</h3>
-                {busted.includes(player.name) && (
-                  <div className="bg-danger text-light rounded">BUSTED</div>
+                {player?.roundRoles?.length > 0 && (
+                  <div className="d-flex justify-content-center">
+                    {player.roundRoles.map((role: string) => {
+                      return <Banner key={`${player}-${role}`} role={role} />;
+                    })}
+                  </div>
                 )}
               </div>
               <div
@@ -133,11 +108,16 @@ const PlayerHand = ({ playerInfo }: { playerInfo: PlayerInfo[] }) => {
                   player.name === "Dealer" ? "flex-row" : "flex-column"
                 }`}
               >
-                {player.hand.map((card: string) => {
+                {player.hand.map((card: string, i: number) => {
+                  const cardToDisplay =
+                    player.name === "Dealer" && i === 1 && !flipCard
+                      ? "1B"
+                      : card;
+
                   return (
                     <img
                       key={card}
-                      src={`/src/assets/poker-qr/` + card + `.svg`}
+                      src={`/src/assets/poker-qr/` + cardToDisplay + `.svg`}
                       alt={card}
                       className="card m-2"
                     />
@@ -146,9 +126,12 @@ const PlayerHand = ({ playerInfo }: { playerInfo: PlayerInfo[] }) => {
               </div>
               {player.name === currentPlayer && player.name !== "Dealer" && (
                 <div className="d-flex gap-2">
-                  <button onClick={onHit} className="btn flex-grow-1 border">
-                    Hit
-                  </button>
+                  {sum !== 21 && (
+                    <button onClick={onHit} className="btn flex-grow-1 border">
+                      Hit
+                    </button>
+                  )}
+
                   <button onClick={onStand} className="btn flex-grow-1 border">
                     Stand
                   </button>

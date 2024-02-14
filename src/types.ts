@@ -1,6 +1,7 @@
 export interface PlayerInfo {
   name: string;
   hand: string[];
+  roundRoles: string[];
 }
 
 export interface GameContextProps {

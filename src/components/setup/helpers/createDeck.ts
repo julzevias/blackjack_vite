@@ -26,6 +26,18 @@ export default function createDeck(): string[] {
 
   shuffleDeck(deck);
 
+  //TEST SCENARIOS
+
+  // multiple Blackjacks
+  deck.unshift("AH");
+  deck.unshift("TH");
+  deck.unshift("AH");
+  deck.unshift("TH");
+  deck.unshift("AH");
+  deck.unshift("TH");
+  deck.unshift("6H");
+  deck.unshift("5H");
+
   return deck;
 }
 

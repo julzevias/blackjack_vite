@@ -8,11 +8,12 @@ export default function createPlayerHands(
   const allPlayerInfo: PlayerInfo[] = [];
 
   allPeople.forEach((person: string) => {
-    const player: PlayerInfo = { name: "", hand: [] };
+    const player: PlayerInfo = { name: "", hand: [], roundRoles: [] };
 
     player.name = person;
     player.hand.push(drawCard(deck) as string);
     player.hand.push(drawCard(deck) as string);
+    player.roundRoles = [];
 
     allPlayerInfo.push(player);
   });

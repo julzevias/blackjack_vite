@@ -29,6 +29,14 @@ export function hit(
 
   const newSum = calculateSum(currentPlayerHand || []);
 
+  //3. add "BUSTED" or "BLACKJACK" to the current player's roundRoles
+  addRoundRole(
+    newAllPlayerInfo.find(
+      (player) => player.name === currentPlayer
+    ) as PlayerInfo,
+    newSum
+  );
+
   return {
     playerName: currentPlayer,
     newAllPlayerInfo: newAllPlayerInfo,
@@ -36,3 +44,13 @@ export function hit(
     newDeck: newDeck,
   };
 }
+
+const addRoundRole = (allPlayerInfo: PlayerInfo, sum: number): PlayerInfo => {
+  if (sum > 21) {
+    allPlayerInfo.roundRoles.push("BUSTED");
+  } else if (sum === 21) {
+    allPlayerInfo.roundRoles.push("BLACKJACK");
+  }
+
+  return allPlayerInfo;
+};
