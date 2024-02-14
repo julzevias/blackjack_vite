@@ -7,8 +7,11 @@ const Banner = ({ role }: { role: string }) => {
 
   if (bannerMap.has(role)) {
     return (
-      <div key={role} className={`alert ${bannerMap.get(role)} text-center`}>
-        {role}
+      <div
+        key={role}
+        className={`alert ${bannerMap.get(role)} text-center p-2`}
+      >
+        <h6 className="text-primary">{role}</h6>
       </div>
     );
   }

@@ -42,7 +42,7 @@ const DealerGroup = ({
               className="flex-column align-items-center m-3"
             >
               <div className="text-center">
-                <h3>{player.name}</h3>
+                <h3 className="text-secondary">Dealer</h3>
                 {player?.roundRoles?.length > 0 && (
                   <div className="d-flex justify-content-center">
                     {player.roundRoles.map((role: string) => {
@@ -73,8 +73,11 @@ const DealerGroup = ({
       </div>
       <div className="d-flex justify-content-center">
         {currentPlayer === "Dealer" && (
-          <button onClick={handleDealerTurn} className="btn text-light border">
-            Take Dealer Turn
+          <button
+            onClick={handleDealerTurn}
+            className="btn text-secondary border"
+          >
+            Play Dealer Turn
           </button>
         )}
       </div>

@@ -80,7 +80,7 @@ const PlayerHand = ({
               className="flex-column align-items-center m-3"
             >
               <div className="text-center">
-                <h3>{player.name}</h3>
+                <h3 className="text-secondary">{player.name}</h3>
                 {player?.roundRoles?.length > 0 && (
                   <div className="d-flex justify-content-center">
                     {player.roundRoles.map((role: string) => {
@@ -102,12 +102,18 @@ const PlayerHand = ({
               {player.name === currentPlayer && player.name !== "Dealer" && (
                 <div className="d-flex gap-2">
                   {sum !== 21 && (
-                    <button onClick={onHit} className="btn flex-grow-1 border">
+                    <button
+                      onClick={onHit}
+                      className="btn btn-outline-secondary flex-grow-1 border"
+                    >
                       Hit
                     </button>
                   )}
 
-                  <button onClick={onStand} className="btn flex-grow-1 border">
+                  <button
+                    onClick={onStand}
+                    className="btn btn-outline-secondary flex-grow-1 border"
+                  >
                     Stand
                   </button>
                 </div>

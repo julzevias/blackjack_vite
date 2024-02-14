@@ -19,7 +19,11 @@ const AddPlayers = ({ addPlayers }: AddPlayers) => {
     setAddPlayer(false);
 
     if ((e.currentTarget[0] as HTMLInputElement).value !== "dealer") {
-      setPlayers([...players, (e.currentTarget[0] as HTMLInputElement).value]);
+      const name = (e.currentTarget[0] as HTMLInputElement).value;
+
+      if (name !== "") {
+        setPlayers([...players, name]);
+      }
       (e.currentTarget[0] as HTMLInputElement).value = "";
     }
   };
@@ -37,18 +41,22 @@ const AddPlayers = ({ addPlayers }: AddPlayers) => {
   return (
     <div className="d-flex flex-column justify-content-center m-3">
       <div className="text-center mb-4">
-        <b>All players</b>
+        <h4 className="text-secondary">All players</h4>
       </div>
       <div className="d-flex flex-column align-items-center">
         {players.map((player) => {
-          return <div key={player}>{player}</div>;
+          return (
+            <h6 key={player} className="text-info">
+              {player}
+            </h6>
+          );
         })}
       </div>
       <div className="">
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center text-secondary">
           <button
             type="button"
-            className="btn btn-block border"
+            className="btn btn-outline-secondary btn-block"
             onClick={() => {
               setAddPlayer(true);
             }}
@@ -63,16 +71,20 @@ const AddPlayers = ({ addPlayers }: AddPlayers) => {
             onSubmit={addNewPlayer}
           >
             <div className="form-group p-2">
-              <label htmlFor="playerName">First name</label>
+              <label htmlFor="playerName" className="text-secondary">
+                First name
+              </label>
               <input
                 type="text"
                 className="form-control"
                 id="playerName"
                 placeholder="John"
-                required
               />
             </div>
-            <button type="submit" className="btn btn-block border">
+            <button
+              type="submit"
+              className="btn btn-outline-secondary btn-block"
+            >
               Submit
             </button>
           </form>
@@ -80,7 +92,7 @@ const AddPlayers = ({ addPlayers }: AddPlayers) => {
       </div>
       <button
         type="button"
-        className="btn btn-block border mx-auto col-1 m-5"
+        className="btn btn-outline-secondary btn-block mx-auto col-1 m-5"
         onClick={onSubmitPlayers}
       >
         Start Game

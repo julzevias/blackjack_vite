@@ -1,4 +1,4 @@
-@import "~bootstrap/scss/bootstrap";
+@import "/src/styles/bootstrap.scss";
 
 body {
   margin: 0;
@@ -7,7 +7,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #31663d;
+  background-color: $primary;
 }
 
 code {
