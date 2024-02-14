@@ -1,4 +1,4 @@
-import { PlayerInfo } from "../../../types";
+import { PlayerInfo } from "../types";
 
 export default function createPlayerHands(
   players: string[],

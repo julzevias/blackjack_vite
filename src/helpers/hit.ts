@@ -1,4 +1,4 @@
-import { PlayerInfo } from "../../../types";
+import { PlayerInfo } from "../types";
 import { calculateSum } from "./calculateSum";
 
 export function hit(

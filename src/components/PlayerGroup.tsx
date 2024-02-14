@@ -1,22 +1,22 @@
 import { useContext } from "react";
-import { GameContextProps, PlayerInfo } from "../../types";
-import { DeckContext } from "../../useContext/context";
-import { hit } from "./helpers/hit";
-import { calculateSum } from "./helpers/calculateSum";
-import Banner from "../common/Banner";
+import { GameContextProps, PlayerInfo } from "../types";
+import { DeckContext } from "../useContext/context";
+import { hit } from "../helpers/hit";
+import { calculateSum } from "../helpers/calculateSum";
+import Banner from "./common/Banner";
+import Card from "./Card";
+import { stand } from "../helpers/stand";
 
 const PlayerHand = ({
   playerInfo,
   players,
   currentPlayer,
   setCurrentPlayer,
-  flipCard,
 }: {
   playerInfo: PlayerInfo[];
   players: string[];
   currentPlayer: string;
   setCurrentPlayer: (player: string) => void;
-  flipCard: boolean;
 }) => {
   const { deck, setDeck, allPlayerInfo, setAllPlayerInfo } =
     useContext<GameContextProps | undefined>(DeckContext) || {};
@@ -38,24 +38,10 @@ const PlayerHand = ({
   };
 
   const onStand = () => {
-    const index = players.indexOf(currentPlayer);
+    const indexCurrPlayer = players.indexOf(currentPlayer);
 
-    //check next player sum !== 21, else give them blackjack
-    const nextPlayer = players[index - 1] ?? 0;
-    const nextPlayerHand = allPlayerInfo?.find(
-      (player) => player.name === nextPlayer
-    )?.hand;
-    const nextPlayerSum = calculateSum(nextPlayerHand || []);
-
-    if (nextPlayerSum === 21) {
-      const localAllPlayerInfo = [...allPlayerInfo!];
-      localAllPlayerInfo
-        ?.find((player) => player.name === nextPlayer)
-        ?.roundRoles.push("BLACKJACK");
-      setAllPlayerInfo?.(localAllPlayerInfo);
-    }
-
-    setCurrentPlayer(players[index - 1]);
+    stand(indexCurrPlayer, players, allPlayerInfo!, setAllPlayerInfo);
+    setCurrentPlayer(players[indexCurrPlayer - 1]);
   };
 
   const updateContext = (result: {
@@ -108,20 +94,9 @@ const PlayerHand = ({
                   player.name === "Dealer" ? "flex-row" : "flex-column"
                 }`}
               >
-                {player.hand.map((card: string, i: number) => {
-                  const cardToDisplay =
-                    player.name === "Dealer" && i === 1 && !flipCard
-                      ? "1B"
-                      : card;
-
-                  return (
-                    <img
-                      key={card}
-                      src={`/src/assets/poker-qr/` + cardToDisplay + `.svg`}
-                      alt={card}
-                      className="card m-2"
-                    />
-                  );
+                {player.hand.map((card: string) => {
+                  const src = `/src/assets/poker-qr/` + card + `.svg`;
+                  return <Card key={card} src={src} alt={card} />;
                 })}
               </div>
               {player.name === currentPlayer && player.name !== "Dealer" && (

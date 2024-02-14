@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { PlayerInfo } from "./types";
-import createDeck from "./components/setup/helpers/createDeck";
-import InitializePlayers from "./components/setup/InitializePlayers";
+import createDeck from "./helpers/createDeck";
+import PlayerNameInput from "./components/PlayerNameInput";
 import { DeckContext } from "./useContext/context";
-import createPlayerHands from "./components/setup/helpers/createPlayerHands";
-import GameBoard from "./components/gameBoard/GameBoard";
+import createPlayerHands from "./helpers/createPlayerHands";
+import GameBoard from "./components/GameBoard";
 
 function App() {
   const [hasGameStarted, setHasGameStarted] = useState<boolean>(false);
@@ -19,7 +19,7 @@ function App() {
 
   if (hasGameStarted === false) {
     return (
-      <InitializePlayers
+      <PlayerNameInput
         addPlayers={(players: string[]) => initializeGameStart(players)}
       />
     );

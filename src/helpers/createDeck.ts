@@ -29,14 +29,14 @@ export default function createDeck(): string[] {
   //TEST SCENARIOS
 
   // multiple Blackjacks
-  deck.unshift("AH");
-  deck.unshift("TH");
-  deck.unshift("AH");
-  deck.unshift("TH");
-  deck.unshift("AH");
-  deck.unshift("TH");
-  deck.unshift("6H");
-  deck.unshift("5H");
+  // deck.unshift("AH");
+  // deck.unshift("TH");
+  // deck.unshift("AH");
+  // deck.unshift("TH");
+  // deck.unshift("AH");
+  // deck.unshift("TH");
+  // deck.unshift("6H");
+  // deck.unshift("5H");
 
   return deck;
 }
