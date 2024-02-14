@@ -75,7 +75,7 @@ const DealerGroup = ({
         {currentPlayer === "Dealer" && (
           <button
             onClick={handleDealerTurn}
-            className="btn text-secondary border"
+            className="btn btn-outline-info border"
           >
             Play Dealer Turn
           </button>

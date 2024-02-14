@@ -11,7 +11,7 @@ const Banner = ({ role }: { role: string }) => {
         key={role}
         className={`alert ${bannerMap.get(role)} text-center p-2`}
       >
-        <h6 className="text-primary">{role}</h6>
+        <h6 className="text-primary mb-0">{role}</h6>
       </div>
     );
   }
