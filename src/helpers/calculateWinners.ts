@@ -14,6 +14,8 @@ export function calculateWinners(allPlayerInfo: PlayerInfo[]) {
 
     if ((dealerSum < playerSum || dealerSum > 21) && hasNoRole) {
       playerInfo.roundRoles.push("WINNER");
+    } else if (dealerSum === playerSum && hasNoRole) {
+      playerInfo.roundRoles.push("TIE");
     }
   });
 

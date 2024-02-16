@@ -38,6 +38,12 @@ export default function createDeck(): string[] {
   // deck.unshift("6H");
   // deck.unshift("5H");
 
+  // tie
+  // deck.unshift("AH");
+  // deck.unshift("9H");
+  // deck.unshift("AH");
+  // deck.unshift("9H");
+
   return deck;
 }
 

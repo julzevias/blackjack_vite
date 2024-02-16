@@ -3,6 +3,7 @@ const Banner = ({ role }: { role: string }) => {
     ["WINNER", "bg-success"],
     ["BUSTED", "bg-danger"],
     ["BLACKJACK", "bg-warning"],
+    ["TIE", "bg-info"],
   ]);
 
   if (bannerMap.has(role)) {
