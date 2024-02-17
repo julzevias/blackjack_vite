@@ -4,4 +4,26 @@ $danger: #fcb5ac;
 
 $text-info: #b99095;
 
+.alert {
+  @media (max-width: 480px) {
+    margin-top: -2rem;
+  }
+}
+
+.btn-group-sm.btn-group-vertical {
+  margin-top: 11rem;
+
+  @media (max-width: 768px) {
+    margin-top: 8rem;
+  }
+
+  @media (max-width: 480px) {
+    margin-top: 5rem;
+  }
+}
+
+.btn.btn-info {
+  margin-top: 12rem;
+}
+
 @import "~bootstrap/scss/bootstrap";

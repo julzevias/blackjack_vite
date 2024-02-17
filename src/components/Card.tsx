@@ -11,13 +11,15 @@ const ImageWithLoading = ({ src, alt }: { src: string; alt: string }) => {
   return (
     <>
       {isLoading && <Loader />}
-      <img
-        src={src}
-        alt={alt}
-        onLoad={handleImageLoad}
-        style={{ display: isLoading ? "none" : "block" }}
-        className="card m-2"
-      />
+      <div className="card-container">
+        <img
+          src={src}
+          alt={alt}
+          onLoad={handleImageLoad}
+          style={{ display: isLoading ? "none" : "block" }}
+          className="card d-flex"
+        />
+      </div>
     </>
   );
 };

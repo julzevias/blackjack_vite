@@ -35,6 +35,8 @@ export default function createDeck(): string[] {
   // deck.unshift("TH");
   // deck.unshift("AH");
   // deck.unshift("TH");
+  // deck.unshift("AH");
+  // deck.unshift("TH");
   // deck.unshift("6H");
   // deck.unshift("5H");
 
@@ -43,6 +45,10 @@ export default function createDeck(): string[] {
   // deck.unshift("9H");
   // deck.unshift("AH");
   // deck.unshift("9H");
+
+  // dealer has blackjack
+  // deck.unshift("AH");
+  // deck.unshift("TH");
 
   return deck;
 }

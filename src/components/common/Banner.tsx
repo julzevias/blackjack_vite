@@ -10,7 +10,9 @@ const Banner = ({ role }: { role: string }) => {
     return (
       <div
         key={role}
-        className={`alert ${bannerMap.get(role)} text-center p-2`}
+        className={`alert ${bannerMap.get(
+          role
+        )} text-center align-self-center p-2`}
       >
         <h6 className="text-primary mb-0">{role}</h6>
       </div>

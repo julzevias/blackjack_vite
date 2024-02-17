@@ -71,40 +71,46 @@ const PlayerHand = ({
 
   return (
     <>
-      <div className="d-flex justify-content-center m-1">
-        {playerInfo.map((player: PlayerInfo) => {
-          const sum = calculateSum(player.hand);
-          return (
-            <div
-              key={player.name}
-              className="flex-column align-items-center m-3"
-            >
-              <div className="text-center">
-                <h3 className="text-secondary">{player.name}</h3>
+      {playerInfo.map((player: PlayerInfo) => {
+        const sum = calculateSum(player.hand);
+        return (
+          <div
+            key={player.name}
+            className="flex-column align-items-center m-2 mt-5 mb-5"
+          >
+            <div className="text-center">
+              <div className="empty-50 d-flex justify-content-center">
                 {player?.roundRoles?.length > 0 && (
-                  <div className="d-flex justify-content-center">
+                  <>
                     {player.roundRoles.map((role: string) => {
                       return <Banner key={`${player}-${role}`} role={role} />;
                     })}
-                  </div>
+                  </>
                 )}
               </div>
-              <div
-                className={`d-flex ${
-                  player.name === "Dealer" ? "flex-row" : "flex-column"
-                }`}
-              >
-                {player.hand.map((card: string) => {
-                  const src = `/src/assets/poker-qr/` + card + `.svg`;
-                  return <Card key={card} src={src} alt={card} />;
-                })}
-              </div>
+              <h4 className="text-secondary mb-2">{player.name}</h4>
+            </div>
+
+            <div
+              className={`d-flex ${
+                player.name === "Dealer"
+                  ? "flex-row "
+                  : "flex-column align-items-center"
+              }`}
+            >
+              {player.hand.map((card: string) => {
+                const src = `/src/assets/poker-qr/` + card + `.svg`;
+                return <Card key={card} src={src} alt={card} />;
+              })}
+            </div>
+
+            <div className="m-2 mt-4 mb-4">
               {player.name === currentPlayer && player.name !== "Dealer" && (
-                <div className="d-flex gap-2">
+                <div className="btn-group-sm btn-group-vertical d-flex justify-content-center position-relative gap-2">
                   {sum !== 21 && (
                     <button
                       onClick={onHit}
-                      className="btn btn-outline-secondary flex-grow-1 border"
+                      className="btn btn-secondary border border-dark"
                     >
                       Hit
                     </button>
@@ -112,16 +118,16 @@ const PlayerHand = ({
 
                   <button
                     onClick={onStand}
-                    className="btn btn-outline-secondary flex-grow-1 border"
+                    className="btn btn-secondary border border-dark"
                   >
                     Stand
                   </button>
                 </div>
               )}
             </div>
-          );
-        })}
-      </div>
+          </div>
+        );
+      })}
     </>
   );
 };

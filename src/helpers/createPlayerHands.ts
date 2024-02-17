@@ -1,4 +1,5 @@
 import { PlayerInfo } from "../types";
+import { calculateSum } from "./calculateSum";
 
 export default function createPlayerHands(
   players: string[],
@@ -17,6 +18,11 @@ export default function createPlayerHands(
 
     allPlayerInfo.push(player);
   });
+
+  // check if first player hand is blackjack
+  if (calculateSum(allPlayerInfo[allPlayerInfo.length - 1].hand) === 21) {
+    allPlayerInfo[allPlayerInfo.length - 1].roundRoles.push("BLACKJACK");
+  }
 
   return allPlayerInfo;
 }

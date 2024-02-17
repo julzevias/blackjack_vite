@@ -18,6 +18,8 @@ const DealerGroup = ({
     useContext<GameContextProps | undefined>(DeckContext) || {};
   const [flipCard, setFlipCard] = useState<boolean>(false);
 
+  const isDealerBlackjack = allPlayerInfo![0].roundRoles?.includes("BLACKJACK");
+
   const handleDealerTurn = () => {
     runDealerTurn(allPlayerInfo!, deck, setAllPlayerInfo!, setDeck!);
 
@@ -33,55 +35,48 @@ const DealerGroup = ({
     );
   }
   return (
-    <div>
-      <div className="d-flex justify-content-center m-1">
-        {playerInfo.map((player: PlayerInfo) => {
-          return (
-            <div
-              key={player.name}
-              className="flex-column align-items-center m-3"
-            >
-              <div className="text-center">
-                <h3 className="text-secondary">Dealer</h3>
-                {player?.roundRoles?.length > 0 && (
-                  <div className="d-flex justify-content-center">
-                    {player.roundRoles.map((role: string) => {
-                      return <Banner key={`${player}-${role}`} role={role} />;
-                    })}
-                  </div>
-                )}
-              </div>
-              <div
-                className={`d-flex ${
-                  player.name === "Dealer" ? "flex-row" : "flex-column"
-                }`}
-              >
-                {player.hand.map((card: string, i: number) => {
-                  const cardToDisplay =
-                    player.name === "Dealer" && i === 1 && !flipCard
-                      ? "1B"
-                      : card;
+    <>
+      {playerInfo.map((player: PlayerInfo) => {
+        return (
+          <div key={player.name} className="flex-column align-items-center m-3">
+            <div className="text-center">
+              <h3 className="text-secondary">Dealer</h3>
 
-                  const src = `/src/assets/poker-qr/` + cardToDisplay + `.svg`;
-
-                  return <Card key={card} src={src} alt={card} />;
-                })}
-              </div>
+              {player?.roundRoles?.length > 0 && (
+                <div className="d-flex justify-content-center">
+                  {player.roundRoles.map((role: string) => {
+                    return <Banner key={`${player}-${role}`} role={role} />;
+                  })}
+                </div>
+              )}
             </div>
-          );
-        })}
-      </div>
-      <div className="d-flex justify-content-center">
-        {currentPlayer === "Dealer" && (
-          <button
-            onClick={handleDealerTurn}
-            className="btn btn-outline-info border"
-          >
-            Play Dealer Turn
-          </button>
-        )}
-      </div>
-    </div>
+            <div className="d-flex flex-row justify-content-center">
+              {player.hand.map((card: string, i: number) => {
+                const cardToDisplay =
+                  player.name === "Dealer" && i === 1 && !flipCard
+                    ? "1B"
+                    : card;
+
+                const src = `/src/assets/poker-qr/` + cardToDisplay + `.svg`;
+
+                return <Card key={card} src={src} alt={card} />;
+              })}
+            </div>
+
+            <div className="empty-200 d-flex justify-content-center position-relative m-2">
+              {currentPlayer === "Dealer" && !isDealerBlackjack && (
+                <button
+                  onClick={handleDealerTurn}
+                  className="btn btn-info btn-lg align-self-center border border-dark"
+                >
+                  Play Dealer Turn
+                </button>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </>
   );
 };
 

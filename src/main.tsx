@@ -5,6 +5,8 @@ import "/index.scss";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <div className="container-fluid">
+      <App />
+    </div>
   </React.StrictMode>
 );
