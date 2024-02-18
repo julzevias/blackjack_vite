@@ -33,7 +33,9 @@ function App() {
           setAllPlayerInfo: setAllPlayerInfo,
         }}
       >
-        <GameBoard />
+        <div className="blackjack-logo d-flex justify-content-center w-100 position-relative">
+          <GameBoard />
+        </div>
       </DeckContext.Provider>
     );
   }

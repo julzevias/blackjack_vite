@@ -6,7 +6,7 @@
 
 .card-container {
   max-width: 150px;
-  max-height: 30px;
+  max-height: 35px;
   resize: both;
 }
 
@@ -25,13 +25,13 @@
   }
 }
 
-.card:hover {
-  transform: translateY(-3px);
+.card-container:not(:last-child):hover {
+  transform: translateY(-25px);
   transition: 0.4s ease-out;
 }
 
-.card:hover ~ .card {
-  position: relative;
-  left: 50px;
-  transition: 0.4s ease-out;
-}
+// .card:hover ~ .card {
+//   position: relative;
+//   left: 50px;
+//   transition: 0.4s ease-out;
+// }
