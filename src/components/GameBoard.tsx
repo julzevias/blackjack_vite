@@ -4,7 +4,7 @@ import PlayerGroup from "./PlayerGroup";
 import { DeckContext } from "../useContext/context";
 import { GameContextProps, PlayerInfo } from "../types";
 
-const GameBoard = () => {
+const GameBoard = ({ restart }: { restart: () => void }) => {
   const { allPlayerInfo } =
     useContext<GameContextProps | undefined>(DeckContext) || {};
 
@@ -13,9 +13,23 @@ const GameBoard = () => {
     players[players.length - 1]
   );
 
+  const onRestart = () => {
+    setCurrentPlayer(players[players.length - 1]);
+    restart();
+  };
+
   return (
     <div>
-      <div className="flex-column justify-content-center mt-5 mb-5">
+      <div className="d-flex flex-column align-items-center m-4">
+        <button
+          className={`${
+            currentPlayer === "EndOfRound" ? "" : "invisible"
+          } btn btn-primary btn-lg border`}
+          onClick={onRestart}
+        >
+          Restart
+        </button>
+
         <div className="d-flex justify-content-center">
           <DealerGroup
             playerInfo={allPlayerInfo!.slice(0, 1)}
@@ -24,15 +38,13 @@ const GameBoard = () => {
           />
         </div>
       </div>
-      <div className="player-group-container d-flex flex-column">
-        <div className="d-flex justify-content-center flex-wrap">
-          <PlayerGroup
-            playerInfo={allPlayerInfo!.slice(1)}
-            players={players}
-            currentPlayer={currentPlayer}
-            setCurrentPlayer={setCurrentPlayer}
-          />
-        </div>
+      <div className="player-group-container d-flex justify-content-center flex-wrap">
+        <PlayerGroup
+          playerInfo={allPlayerInfo!.slice(1)}
+          players={players}
+          currentPlayer={currentPlayer}
+          setCurrentPlayer={setCurrentPlayer}
+        />
       </div>
     </div>
   );

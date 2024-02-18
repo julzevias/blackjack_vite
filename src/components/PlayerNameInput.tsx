@@ -1,16 +1,12 @@
 import { FormEvent, useState } from "react";
 
 interface AddPlayers {
-  addPlayers: (players: string[]) => void;
+  players: string[];
+  setPlayers: (players: string[]) => void;
+  startGame: () => void;
 }
 
-const AddPlayers = ({ addPlayers }: AddPlayers) => {
-  const [players, setPlayers] = useState<string[]>([
-    "jon",
-    "julie",
-    "titan",
-    "jane",
-  ]);
+const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
   const [addPlayer, setAddPlayer] = useState(false);
 
   const addNewPlayer = (e: FormEvent<HTMLFormElement>) => {
@@ -34,7 +30,7 @@ const AddPlayers = ({ addPlayers }: AddPlayers) => {
     } else if (players.length > 7) {
       return <div>Too many players</div>;
     } else {
-      addPlayers(players);
+      startGame();
     }
   };
 
