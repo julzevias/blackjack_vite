@@ -1,19 +1,31 @@
 .player-group-container {
+  @media screen and (max-width: 768px) {
+    margin-top: 10rem;
+  }
+
   @media screen and (max-width: 480px) {
-    margin-top: 6rem;
+    margin-top: 12rem;
   }
 }
 
 .card-container {
   max-width: 150px;
-  max-height: 35px;
+  max-height: 45px;
   resize: both;
+
+  @media screen and (max-width: 768px) {
+    max-height: 35px;
+  }
+
+  @media screen and (max-width: 480px) {
+    max-height: 20px;
+  }
 }
 
 .card {
   max-height: 200px;
   max-width: auto;
-  background-color: #17141d;
+  background-color: $primary;
   box-shadow: 0 -0.01rem 0.5rem 0.01rem #575757;
 
   @media screen and (max-width: 768px) {
@@ -25,13 +37,7 @@
   }
 }
 
-.card-container:not(:last-child):hover {
-  transform: translateY(-25px);
+.show-hidden-cards:not(:last-child):hover {
+  transform: translateY(-20px);
   transition: 0.4s ease-out;
 }
-
-// .card:hover ~ .card {
-//   position: relative;
-//   left: 50px;
-//   transition: 0.4s ease-out;
-// }

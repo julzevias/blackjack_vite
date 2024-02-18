@@ -14,7 +14,7 @@ const GameBoard = () => {
   );
 
   return (
-    <div className="">
+    <div>
       <div className="flex-column justify-content-center mt-5 mb-5">
         <div className="d-flex justify-content-center">
           <DealerGroup

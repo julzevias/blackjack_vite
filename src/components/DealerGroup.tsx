@@ -43,7 +43,9 @@ const DealerGroup = ({
               <h3 className="text-secondary">
                 Dealer{" "}
                 {currentPlayer === "EndOfRound" && (
-                  <span className="badge rounded-pill bg-info">{sum}</span>
+                  <span className="badge rounded-pill bg-info border border-dark">
+                    {sum}
+                  </span>
                 )}
               </h3>
 
@@ -70,7 +72,7 @@ const DealerGroup = ({
               })}
             </div>
 
-            <div className="empty-200 d-flex justify-content-center position-relative m-2">
+            <div className="empty-200 d-flex justify-content-center position-relative p-3">
               {currentPlayer === "Dealer" && !isDealerBlackjack && (
                 <button
                   onClick={handleDealerTurn}

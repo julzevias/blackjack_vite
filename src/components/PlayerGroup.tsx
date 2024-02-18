@@ -76,7 +76,7 @@ const PlayerHand = ({
         return (
           <div
             key={player.name}
-            className="flex-column align-items-center m-2 mt-5 mb-5"
+            className=" flex-column align-items-center m-2  mb-5 pb-5 pt-3"
           >
             <div className="text-center">
               <div className="empty-50 d-flex justify-content-center">
@@ -90,7 +90,9 @@ const PlayerHand = ({
               </div>
               <h4 className="text-secondary mb-2">
                 {player.name}
-                <span className="badge rounded-pill bg-info">{sum}</span>
+                <span className="badge rounded-pill bg-info border border-dark">
+                  {sum}
+                </span>
               </h4>
             </div>
 
@@ -103,7 +105,11 @@ const PlayerHand = ({
             >
               {player.hand.map((card: string) => {
                 const src = `/src/assets/poker-qr/` + card + `.svg`;
-                return <Card key={card} src={src} alt={card} />;
+                return (
+                  <div key={card} className="show-hidden-cards">
+                    <Card src={src} alt={card} />
+                  </div>
+                );
               })}
             </div>
 
