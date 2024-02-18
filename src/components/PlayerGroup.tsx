@@ -88,7 +88,10 @@ const PlayerHand = ({
                   </>
                 )}
               </div>
-              <h4 className="text-secondary mb-2">{player.name}</h4>
+              <h4 className="text-secondary mb-2">
+                {player.name}
+                <span className="badge rounded-pill bg-info">{sum}</span>
+              </h4>
             </div>
 
             <div

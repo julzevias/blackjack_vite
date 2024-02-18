@@ -1,9 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { GameContextProps, PlayerInfo } from "../types";
 import { DeckContext } from "../useContext/context";
 import Banner from "./common/Banner";
 import Card from "./Card";
 import { runDealerTurn } from "../helpers/runDealerTurn";
+import { calculateSum } from "../helpers/calculateSum";
 
 const DealerGroup = ({
   playerInfo,
@@ -16,14 +17,12 @@ const DealerGroup = ({
 }) => {
   const { deck, setDeck, allPlayerInfo, setAllPlayerInfo } =
     useContext<GameContextProps | undefined>(DeckContext) || {};
-  const [flipCard, setFlipCard] = useState<boolean>(false);
 
   const isDealerBlackjack = allPlayerInfo![0].roundRoles?.includes("BLACKJACK");
 
   const handleDealerTurn = () => {
     runDealerTurn(allPlayerInfo!, deck, setAllPlayerInfo!, setDeck!);
 
-    setFlipCard(true);
     setCurrentPlayer("EndOfRound");
   };
 
@@ -36,24 +35,32 @@ const DealerGroup = ({
   }
   return (
     <>
-      {playerInfo.map((player: PlayerInfo) => {
+      {playerInfo.map((dealer: PlayerInfo) => {
+        const sum = calculateSum(dealer.hand);
         return (
-          <div key={player.name} className="flex-column align-items-center m-3">
+          <div key={dealer.name} className="flex-column align-items-center m-3">
             <div className="text-center">
-              <h3 className="text-secondary">Dealer</h3>
+              <h3 className="text-secondary">
+                Dealer{" "}
+                {currentPlayer === "EndOfRound" && (
+                  <span className="badge rounded-pill bg-info">{sum}</span>
+                )}
+              </h3>
 
-              {player?.roundRoles?.length > 0 && (
+              {dealer?.roundRoles?.length > 0 && (
                 <div className="d-flex justify-content-center">
-                  {player.roundRoles.map((role: string) => {
-                    return <Banner key={`${player}-${role}`} role={role} />;
+                  {dealer.roundRoles.map((role: string) => {
+                    return <Banner key={`${dealer}-${role}`} role={role} />;
                   })}
                 </div>
               )}
             </div>
             <div className="d-flex flex-row justify-content-center">
-              {player.hand.map((card: string, i: number) => {
+              {dealer.hand.map((card: string, i: number) => {
                 const cardToDisplay =
-                  player.name === "Dealer" && i === 1 && !flipCard
+                  dealer.name === "Dealer" &&
+                  i === 1 &&
+                  currentPlayer !== "EndOfRound"
                     ? "1B"
                     : card;
 
