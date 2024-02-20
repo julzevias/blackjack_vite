@@ -137,7 +137,14 @@ const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
                   setAddPlayer(!addPlayer);
                 }}
               >
-                <img src="/src/assets/plus.png" className="img-fluid" />
+                <img
+                  src={`${
+                    addPlayer === true
+                      ? "/src/assets/minus.png"
+                      : "/src/assets/plus.png"
+                  }`}
+                  className="img-fluid"
+                />
               </button>
             </div>
 
