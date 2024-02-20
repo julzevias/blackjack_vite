@@ -70,7 +70,8 @@ const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
   };
 
   const onRemovePlayer = (player: string) => {
-    const newPlayers = players.filter((p) => p !== player);
+    const newPlayers = inputValues.filter((p) => p !== player);
+    setInputValues(newPlayers);
     setPlayers(newPlayers);
   };
 
