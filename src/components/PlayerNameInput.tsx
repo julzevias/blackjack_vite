@@ -8,7 +8,8 @@ interface AddPlayers {
 }
 
 const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
-  const [addPlayer, setAddPlayer] = useState(false);
+  const [addPlayer, setAddPlayer] = useState<boolean>(false);
+  const [inputValues, setInputValues] = useState<string[]>(players);
 
   const addNewPlayer = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,6 +29,7 @@ const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
     }
 
     if (name !== "") {
+      setInputValues([...inputValues, name]);
       setPlayers([...players, name]);
       inputElement.value = "";
       setAddPlayer(false);
@@ -42,6 +44,31 @@ const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
     startGame();
   };
 
+  const onChangePlayerName = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const newInputValues = [...inputValues];
+    const newName = e.target.value;
+    if (newName.toLowerCase() === "dealer") {
+      toast.error("Invalid name. Please choose another name");
+      e.target.value = "";
+      return;
+    } else if (inputValues.includes(newName)) {
+      toast.error("Player already exists");
+      e.target.value = "";
+      return;
+    }
+    newInputValues[index] = e.target.value;
+    setInputValues(newInputValues);
+  };
+
+  const onBlurPlayerName = (index: number) => {
+    const newPlayers = [...players];
+    newPlayers[index] = inputValues[index];
+    setPlayers(newPlayers);
+  };
+
   const onRemovePlayer = (player: string) => {
     const newPlayers = players.filter((p) => p !== player);
     setPlayers(newPlayers);
@@ -49,7 +76,9 @@ const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
 
   return (
     <>
-      <h2 className="text-center text-secondary p-5">Multiplayer BlackJack</h2>
+      <h2 className="text-center text-secondary p-5">
+        BlackJack - Local Multiplayer
+      </h2>
       <div className="d-flex align-items-start mt-lg-5">
         <div className="d-flex flex-column w-100">
           <div className="border shadow-lg rounded p-4 p-lg-5">
@@ -57,35 +86,47 @@ const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
               <h3 className="text-secondary">Players</h3>
             </div>
             <div className="d-flex flex-column">
-              <h5 className="text-light">Enter all players below </h5>
+              <h5 className="text-light">Enter players below </h5>
               <p className="text-light">
                 Min number of players: <span className="text-info">1</span>. Max
                 number of players: <span className="text-info">7</span>
               </p>
-              {players.map((player) => {
-                return (
-                  <div key={player} className="d-flex align-items-center">
-                    <div className="flex-grow-1">
-                      <label htmlFor="playerName" className="text-secondary">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control  shadow mb-3"
-                        placeholder="Player Name"
-                        value={player}
-                        readOnly
-                      />
+              {Array.from({ length: Math.max(3, players.length) }).map(
+                (_, index) => {
+                  return (
+                    <div key={index} className="d-flex align-items-center">
+                      <div className="flex-grow-1">
+                        <label htmlFor="playerName" className="text-secondary">
+                          Name
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control  shadow mb-3"
+                          placeholder="Player Name ..."
+                          value={inputValues[index] || ""}
+                          onChange={(e) => onChangePlayerName(e, index)}
+                          onBlur={() => onBlurPlayerName(index)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              e.currentTarget.blur();
+                            }
+                          }}
+                        />
+                      </div>
+                      {players[index] && (
+                        <button
+                          onClick={() => onRemovePlayer(players[index])}
+                          className="btn text-danger m-2"
+                        >
+                          <strong className="m-0" aria-label="Remove Name">
+                            X
+                          </strong>
+                        </button>
+                      )}
                     </div>
-                    <button
-                      onClick={() => onRemovePlayer(player)}
-                      className="btn text-danger m-2"
-                    >
-                      <strong className="m-0">X</strong>
-                    </button>
-                  </div>
-                );
-              })}
+                  );
+                }
+              )}
             </div>
 
             <div className="text-secondary mb-2">
@@ -107,19 +148,20 @@ const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
               onSubmit={addNewPlayer}
             >
               <div className="form-group">
-                <label htmlFor="playerName" className="text-primary">
+                <label htmlFor="playerName" className="text-light">
                   Name
                 </label>
                 <input
                   type="text"
                   className="form-control shadow"
                   id="playerName"
-                  placeholder="Player Name"
+                  placeholder="Player Name ..."
                 />
               </div>
               <button
                 type="submit"
                 className="btn btn-secondary btn-block shadow border border-dark mt-3 mx-auto"
+                aria-label="Submit Player Name"
               >
                 Submit
               </button>
