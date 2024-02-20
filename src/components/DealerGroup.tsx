@@ -74,7 +74,7 @@ const DealerGroup = ({
               {currentPlayer === "Dealer" && !isDealerBlackjack && (
                 <button
                   onClick={handleDealerTurn}
-                  className="btn btn-info btn-lg align-self-center border border-dark"
+                  className="play-dealer-turn btn btn-info btn-lg align-self-center border border-dark"
                 >
                   Play Dealer Turn
                 </button>

@@ -7,12 +7,7 @@ import createPlayerHands from "./helpers/createPlayerHands";
 import GameBoard from "./components/GameBoard";
 
 function App() {
-  const [players, setPlayers] = useState<string[]>([
-    "jon",
-    "julie",
-    "titan",
-    "jane",
-  ]);
+  const [players, setPlayers] = useState<string[]>([]);
   const [hasGameStarted, setHasGameStarted] = useState<boolean>(false);
   const [deck, setDeck] = useState<string[]>(createDeck);
   const [allPlayerInfo, setAllPlayerInfo] = useState<PlayerInfo[]>([]);
@@ -31,26 +26,30 @@ function App() {
 
   if (hasGameStarted === false) {
     return (
-      <PlayerNameInput
-        players={players}
-        setPlayers={() => setPlayers(players)}
-        startGame={initializeGameStart}
-      />
+      <div className="container-fluid p-3">
+        <PlayerNameInput
+          players={players}
+          setPlayers={setPlayers}
+          startGame={initializeGameStart}
+        />
+      </div>
     );
   } else {
     return (
-      <DeckContext.Provider
-        value={{
-          deck: deck,
-          allPlayerInfo: allPlayerInfo,
-          setDeck: setDeck,
-          setAllPlayerInfo: setAllPlayerInfo,
-        }}
-      >
-        <div className="blackjack-logo d-flex justify-content-center w-100 position-relative">
-          <GameBoard restart={initializeGameStart} />
-        </div>
-      </DeckContext.Provider>
+      <div className="container-fluid">
+        <DeckContext.Provider
+          value={{
+            deck: deck,
+            allPlayerInfo: allPlayerInfo,
+            setDeck: setDeck,
+            setAllPlayerInfo: setAllPlayerInfo,
+          }}
+        >
+          <div className="blackjack-logo d-flex justify-content-center w-100 position-relative">
+            <GameBoard restart={initializeGameStart} />
+          </div>
+        </DeckContext.Provider>
+      </div>
     );
   }
 }

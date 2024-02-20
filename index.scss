@@ -1,5 +1,6 @@
 @import "/src/styles/bootstrap.scss";
 @import "/src/styles/common.scss";
+@import "/src/styles/player-input.scss";
 @import "/src/styles/playerGroup.scss";
 
 @import url("https://fonts.googleapis.com/css2?family=Atma:wght@300;400;500;600;700&display=swap");
@@ -12,6 +13,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: $primary;
+  letter-spacing: 1.5px;
 }
 
 code {
@@ -35,14 +37,4 @@ code {
   bottom: 0;
   opacity: 0.3;
   z-index: -10000;
-}
-
-.spotlight {
-  position: fixed;
-  opacity: 1;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  pointer-events: none;
 }
