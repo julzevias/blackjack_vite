@@ -2,14 +2,12 @@ import { FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 
 interface AddPlayers {
-  players: string[];
-  setPlayers: (players: string[]) => void;
-  startGame: () => void;
+  startGame: (players: string[]) => void;
 }
 
-const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
+const AddPlayers = ({ startGame }: AddPlayers) => {
+  const [players, setPlayers] = useState<string[]>([]);
   const [addPlayer, setAddPlayer] = useState<boolean>(false);
-  const [inputValues, setInputValues] = useState<string[]>(players);
 
   const addNewPlayer = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,7 +27,6 @@ const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
     }
 
     if (name !== "") {
-      setInputValues([...inputValues, name]);
       setPlayers([...players, name]);
       inputElement.value = "";
       setAddPlayer(false);
@@ -41,37 +38,32 @@ const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
       toast.error("Need at least 1 player to start the game");
       return;
     }
-    startGame();
+    startGame(players);
   };
 
   const onChangePlayerName = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    const newInputValues = [...inputValues];
+    const newPlayers = [...players];
     const newName = e.target.value;
     if (newName.toLowerCase() === "dealer") {
       toast.error("Invalid name. Please choose another name");
       e.target.value = "";
       return;
-    } else if (inputValues.includes(newName)) {
+    } else if (players.includes(newName)) {
       toast.error("Player already exists");
       e.target.value = "";
       return;
     }
-    newInputValues[index] = e.target.value;
-    setInputValues(newInputValues);
-  };
 
-  const onBlurPlayerName = (index: number) => {
-    const newPlayers = [...players];
-    newPlayers[index] = inputValues[index];
+    newPlayers[index] = e.target.value;
     setPlayers(newPlayers);
   };
 
   const onRemovePlayer = (player: string) => {
-    const newPlayers = inputValues.filter((p) => p !== player);
-    setInputValues(newPlayers);
+    const newPlayers = players.filter((p) => p !== player);
+    setPlayers(newPlayers);
     setPlayers(newPlayers);
   };
 
@@ -104,14 +96,8 @@ const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
                           type="text"
                           className="form-control  shadow mb-3"
                           placeholder="Player Name ..."
-                          value={inputValues[index] || ""}
+                          value={players[index] || ""}
                           onChange={(e) => onChangePlayerName(e, index)}
-                          onBlur={() => onBlurPlayerName(index)}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                              e.currentTarget.blur();
-                            }
-                          }}
                         />
                       </div>
                       {players[index] && (
@@ -130,20 +116,22 @@ const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
               )}
             </div>
 
-            <div className="text-secondary mb-2">
-              <button
-                type="button"
-                className="square-btn btn btn-info btn-block shadow border border-dark mx-auto p-0"
-                onClick={() => {
-                  setAddPlayer(!addPlayer);
-                }}
-              >
-                <img
-                  src={`${addPlayer === true ? "/minus.png" : "/plus.png"}`}
-                  className="img-fluid"
-                />
-              </button>
-            </div>
+            {players.length < 7 ? (
+              <div className="text-secondary mb-2">
+                <button
+                  type="button"
+                  className="square-btn btn btn-info btn-block shadow border border-dark mx-auto p-0"
+                  onClick={() => {
+                    setAddPlayer(!addPlayer);
+                  }}
+                >
+                  <img
+                    src={`${addPlayer === true ? "/minus.png" : "/plus.png"}`}
+                    className="img-fluid"
+                  />
+                </button>
+              </div>
+            ) : null}
 
             <form
               className={`${

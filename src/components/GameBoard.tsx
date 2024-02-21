@@ -4,7 +4,11 @@ import PlayerGroup from "./PlayerGroup";
 import { DeckContext } from "../useContext/context";
 import { GameContextProps, PlayerInfo } from "../types";
 
-const GameBoard = ({ restart }: { restart: () => void }) => {
+const GameBoard = ({
+  restart,
+}: {
+  restart: (playerNames: string[]) => void;
+}) => {
   const { allPlayerInfo } =
     useContext<GameContextProps | undefined>(DeckContext) || {};
 
@@ -14,8 +18,11 @@ const GameBoard = ({ restart }: { restart: () => void }) => {
   );
 
   const onRestart = () => {
+    const playerNames = allPlayerInfo!
+      .slice(1)
+      .map((player: PlayerInfo) => player.name);
+    restart(playerNames);
     setCurrentPlayer(players[players.length - 1]);
-    restart();
   };
 
   return (

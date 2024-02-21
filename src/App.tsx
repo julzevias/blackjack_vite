@@ -7,7 +7,6 @@ import createPlayerHands from "./helpers/createPlayerHands";
 import GameBoard from "./components/GameBoard";
 
 function App() {
-  const [players, setPlayers] = useState<string[]>([]);
   const [hasGameStarted, setHasGameStarted] = useState<boolean>(false);
   const [deck, setDeck] = useState<string[]>(createDeck);
   const [allPlayerInfo, setAllPlayerInfo] = useState<PlayerInfo[]>([]);
@@ -18,7 +17,7 @@ function App() {
     }
   }, [deck]);
 
-  const initializeGameStart = () => {
+  const initializeGameStart = (players: string[]) => {
     const allPlayerInfo = createPlayerHands(players, deck);
     setAllPlayerInfo(allPlayerInfo);
     setHasGameStarted(true);
@@ -28,9 +27,7 @@ function App() {
     return (
       <div className="container-fluid p-3">
         <PlayerNameInput
-          players={players}
-          setPlayers={setPlayers}
-          startGame={initializeGameStart}
+          startGame={(players: string[]) => initializeGameStart(players)}
         />
       </div>
     );
