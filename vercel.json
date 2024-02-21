@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/julzcreations.dev",
+      "destination": "/julzcreations/blackjack.dev"
+    }
+  ]
+}
