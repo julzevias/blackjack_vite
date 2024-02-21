@@ -139,11 +139,7 @@ const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
                 }}
               >
                 <img
-                  src={`${
-                    addPlayer === true
-                      ? "/src/assets/minus.png"
-                      : "/src/assets/plus.png"
-                  }`}
+                  src={`${addPlayer === true ? "/minus.png" : "/plus.png"}`}
                   className="img-fluid"
                 />
               </button>
@@ -189,7 +185,7 @@ const AddPlayers = ({ players, setPlayers, startGame }: AddPlayers) => {
         <div className="d-none d-sm-block p-2 p-lg-5">
           <div className="d-flex justify-content-center align-items-end">
             <img
-              src="/src/assets/chips-and-blackjack.png"
+              src="/chips-and-blackjack.png"
               className="img-fluid opacity-50"
             />
           </div>

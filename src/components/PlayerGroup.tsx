@@ -104,7 +104,7 @@ const PlayerHand = ({
               }`}
             >
               {player.hand.map((card: string) => {
-                const src = `/src/assets/poker-qr/` + card + `.svg`;
+                const src = `/poker-qr/` + card + `.svg`;
                 return (
                   <div key={card} className="show-hidden-cards">
                     <Card src={src} alt={card} />

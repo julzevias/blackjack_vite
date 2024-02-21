@@ -64,7 +64,7 @@ const DealerGroup = ({
                     ? "1B"
                     : card;
 
-                const src = `/src/assets/poker-qr/` + cardToDisplay + `.svg`;
+                const src = `/poker-qr/` + cardToDisplay + `.svg`;
 
                 return <Card key={card} src={src} alt={card} />;
               })}
