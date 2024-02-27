@@ -60,7 +60,10 @@ const DealerGroup = ({
             <div className="d-flex flex-row justify-content-center">
               {dealer.hand.map((card: string, i: number) => {
                 const cardToDisplay =
-                  dealer.name === "Dealer" && i === 1 && !isDealerBlackjack
+                  dealer.name === "Dealer" &&
+                  i === 1 &&
+                  !isDealerBlackjack &&
+                  currentPlayer !== "EndOfRound"
                     ? "1B"
                     : card;
 
