@@ -69,9 +69,11 @@ const AddPlayers = ({ startGame }: AddPlayers) => {
 
   return (
     <>
-      <h2 className="text-center text-secondary p-5">
-        BlackJack - Local Multiplayer
-      </h2>
+      <h1 className="text-center text-secondary pt-5">BlackJack</h1>
+      <h5 className="text-center text-secondary">
+        Having a great time with your buddies but missing a deck of cards? No
+        worries! You can play a game of blackjack right here with them!
+      </h5>
       <div className="d-flex align-items-start mt-lg-5">
         <div className="d-flex flex-column w-100">
           <div className="border shadow-lg rounded p-4 p-lg-5">

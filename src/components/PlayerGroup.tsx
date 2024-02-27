@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { GameContextProps, PlayerInfo } from "../types";
-import { DeckContext } from "../useContext/context";
-import { hit } from "../helpers/hit";
-import { calculateSum } from "../helpers/calculateSum";
-import Banner from "./common/Banner";
+import { GameContextProps, PlayerInfo } from "@/types";
+import { DeckContext } from "@/useContext/context";
+import { hit } from "@/helpers/hit";
+import { calculateSum } from "@/helpers/calculateSum";
+import Banner from "@/components/common/Banner";
 import Card from "./Card";
-import { stand } from "../helpers/stand";
+import { stand } from "@/helpers/stand";
 
 const PlayerHand = ({
   playerInfo,

@@ -6,9 +6,7 @@ import "/index.scss";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <div>
-      <Toaster />
-      <App />
-    </div>
+    <Toaster />
+    <App />
   </React.StrictMode>
 );

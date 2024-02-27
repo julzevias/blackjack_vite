@@ -16,6 +16,10 @@ body {
   letter-spacing: 1.5px;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 code {
   font-family: atma, source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

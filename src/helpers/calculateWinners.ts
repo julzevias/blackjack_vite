@@ -1,5 +1,5 @@
-import { PlayerInfo } from "../types";
-import { calculateSum } from "./calculateSum";
+import { PlayerInfo } from "@/types";
+import { calculateSum } from "@/helpers/calculateSum";
 
 export function calculateWinners(allPlayerInfo: PlayerInfo[]) {
   if (!allPlayerInfo) {

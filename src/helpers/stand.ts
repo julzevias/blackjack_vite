@@ -1,5 +1,5 @@
-import { PlayerInfo } from "../types";
-import { calculateSum } from "./calculateSum";
+import { PlayerInfo } from "@/types";
+import { calculateSum } from "@/helpers/calculateSum";
 
 export function stand(
   indexCurrPlayer: number,

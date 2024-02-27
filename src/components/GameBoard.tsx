@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import DealerGroup from "./DealerGroup";
-import PlayerGroup from "./PlayerGroup";
-import { DeckContext } from "../useContext/context";
-import { GameContextProps, PlayerInfo } from "../types";
+import DealerGroup from "@/components/DealerGroup";
+import PlayerGroup from "@/components/PlayerGroup";
+import { DeckContext } from "@/useContext/context";
+import { GameContextProps, PlayerInfo } from "@/types";
 
 const GameBoard = ({
   restart,

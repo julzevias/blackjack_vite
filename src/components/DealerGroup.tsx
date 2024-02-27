@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import { GameContextProps, PlayerInfo } from "../types";
-import { DeckContext } from "../useContext/context";
-import Banner from "./common/Banner";
-import Card from "./Card";
-import { runDealerTurn } from "../helpers/runDealerTurn";
-import { calculateSum } from "../helpers/calculateSum";
+import { GameContextProps, PlayerInfo } from "@/types";
+import { DeckContext } from "@/useContext/context";
+import Banner from "@/components/common/Banner";
+import Card from "@/components/Card";
+import { runDealerTurn } from "@/helpers/runDealerTurn";
+import { calculateSum } from "@/helpers/calculateSum";
 
 const DealerGroup = ({
   playerInfo,

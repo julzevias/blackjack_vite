@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { PlayerInfo } from "./types";
-import createDeck from "./helpers/createDeck";
-import PlayerNameInput from "./components/PlayerNameInput";
-import { DeckContext } from "./useContext/context";
-import createPlayerHands from "./helpers/createPlayerHands";
-import GameBoard from "./components/GameBoard";
+import { PlayerInfo } from "@/types";
+import createDeck from "@/helpers/createDeck";
+import PlayerNameInput from "@/components/PlayerNameInput";
+import { DeckContext } from "@/useContext/context";
+import createPlayerHands from "@/helpers/createPlayerHands";
+import GameBoard from "@/components/GameBoard";
 
 function App() {
   const [hasGameStarted, setHasGameStarted] = useState<boolean>(false);

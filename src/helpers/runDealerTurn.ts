@@ -1,6 +1,6 @@
-import { PlayerInfo } from "../types";
-import { calculateSum } from "./calculateSum";
-import { calculateWinners } from "./calculateWinners";
+import { PlayerInfo } from "@/types";
+import { calculateSum } from "@/helpers/calculateSum";
+import { calculateWinners } from "@/helpers/calculateWinners";
 import { hit } from "./hit";
 
 export function runDealerTurn(
